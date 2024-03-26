@@ -12,7 +12,6 @@ func (s *Stack[T]) Push(item T) {
 	s.items = append(s.items, item)
 }
 
-// поменять указатель
 func (s *Stack[T]) Pop() *T {
 	if s.IsEmpty() {
 		return nil
