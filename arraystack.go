@@ -1,5 +1,7 @@
 package arraystack
 
+import "errors"
+
 type Stack[T comparable] struct {
 	items []T
 }
@@ -12,22 +14,22 @@ func (s *Stack[T]) Push(item T) {
 	s.items = append(s.items, item)
 }
 
-func (s *Stack[T]) Pop() *T {
+func (s *Stack[T]) Pop() (T, error) {
 	if s.IsEmpty() {
-		return nil
+		return *new(T), errors.New("stack is empty")
 	}
 
 	item := s.items[len(s.items)-1]
 	s.items = s.items[:len(s.items)-1]
-	return &item
+	return item, nil
 }
 
-func (s *Stack[T]) Peek() *T {
+func (s *Stack[T]) Peek() (T, error) {
 	if s.IsEmpty() {
-		return nil
+		return *new(T), errors.New("stack is empty")
 	}
 
-	return &s.items[len(s.items)-1]
+	return s.items[len(s.items)-1], nil
 }
 
 func (s *Stack[T]) IsEmpty() bool {
